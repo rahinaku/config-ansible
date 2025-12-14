@@ -1,6 +1,6 @@
 ---
 - name: Install neovim
-  hosts: local 
+  hosts: local
   vars:
     user_home: "{{ ansible_user_dir }}"
     xdg_cache_home: "{{ lookup('env', 'XDG_CACHE_HOME') | default(user_home + '/.cache', true) }}"
@@ -11,5 +11,4 @@
     tmp_dir: "{{ user_home }}/ansible-tmp"
   roles:
     - common
-    - neovim
-    - zellij
+    - zsh

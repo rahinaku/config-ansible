@@ -1,0 +1,23 @@
+- name: "Create zellij dir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ tmp_dir }}/ohmyzsh"
+- name: "Install zsh"
+  become: yes
+  apt:
+    name: "zsh"
+- name: "Change default shell"
+  become: yes
+  user:
+    name: "{{ ansible_env.USER }}"
+    shell: "/usr/bin/zsh"
+- name: "Featch oh my zsh"
+  get_url:
+    dest: "{{ tmp_dir }}/ohmyzsh/{{ source_name }}"
+    url: "{{ source_url }}"
+    mode: "744"
+- name: "Install ohmyzsh"
+  script:
+    cmd: "{{ tmp_dir }}/ohmyzsh/{{ source_name }}"

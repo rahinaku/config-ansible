@@ -1,0 +1,2 @@
+source_name: "install.sh"
+source_url: "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/{{source_name}}"
