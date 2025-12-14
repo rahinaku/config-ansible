@@ -1,0 +1,29 @@
+---
+- name: "Create nvim dir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ xdg_data_home }}/nvim"
+    - "{{ ansible_home }}/.config/nvim"
+- name: "Featch neovim"
+  get_url:
+    dest: "{{ xdg_data_home }}/nvim/{{ source_name }}"
+    url: "{{ source_url }}"
+    mode: "744"
+- name: "Extract the appimage"
+  shell: |
+    (cd {{ xdg_data_home }}/nvim && ./{{source_name}} --appimage-extract)
+- name: "Create link to binay file"
+  file:
+    src: "{{ xdg_data_home }}/nvim/squashfs-root/usr/bin/nvim"
+    dest: "{{ xdg_bin_home }}/nvim"
+    state: "link"
+- name: "Copy setting direcotry"
+  copy:
+    src: "nvim/"
+    dest: "{{ ansible_home }}/.config/nvim"
+    mode: "0755"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+

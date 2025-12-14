@@ -1,0 +1,19 @@
+- name: "Create XDG dir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ xdg_cache_home }}"
+    - "{{ xdg_config_home }}"
+    - "{{ xdg_data_home }}"
+    - "{{ xdg_state_home }}"
+    - "{{ xdg_bin_home }}"
+    - "{{ tmp_dir }}"
+
+- name: "Add xdg_bin_home to PATH in .bashrc"
+  lineinfile:
+    path: "{{ ansible_home }}/.bashrc"
+    line: 'export PATH="{{ xdg_bin_home }}:$PATH"'
+    regexp: "^export PATH=.*{{ xdg_bin_home }}.*"
+    state: present
+    create: yes

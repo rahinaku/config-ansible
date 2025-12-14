@@ -1,0 +1,34 @@
+- name: "Create zellij dir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ xdg_data_home }}/zellij"
+    - "{{ tmp_dir }}/zellij"
+    - "{{ ansible_home }}/.config/zellij"
+- name: "Featch zellij"
+  get_url:
+    dest: "{{ tmp_dir }}/zellij/{{ source_name }}"
+    url: "{{ source_url }}"
+    mode: "744"
+- name: "Extract the binary"
+  unarchive:
+    src: "{{ tmp_dir }}/zellij/{{ source_name }}"
+    remote_src: true
+    dest: "{{ xdg_data_home }}/zellij"
+    mode: "0755"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+- name: "Create link to binay file"
+  file:
+    src: "{{ xdg_data_home }}/zellij/zellij"
+    dest: "{{ xdg_bin_home }}/zellij"
+    state: "link"
+- name: "Copy setting direcotry"
+  copy:
+    src: "zellij/"
+    dest: "{{ ansible_home }}/.config/zellij"
+    mode: "0755"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+

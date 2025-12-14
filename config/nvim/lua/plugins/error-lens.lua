@@ -1,0 +1,11 @@
+return {
+    "chikko80/error-lens.nvim",
+    event = "BufRead",
+    dependencies = {
+        "nvim-telescope/telescope.nvim"
+    },
+    opts = {
+        enabled = false
+        -- your options go here
+    },
+}

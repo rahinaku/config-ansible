@@ -1,0 +1,6 @@
+
+[server]
+localhost ansible_user=root ansible_ssh_pass=root ansible_port=2222
+
+[local]
+localhost ansible_connection=local ansible_user=shoma
