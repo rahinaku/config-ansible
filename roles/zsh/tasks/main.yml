@@ -18,6 +18,22 @@
     dest: "{{ tmp_dir }}/ohmyzsh/{{ source_name }}"
     url: "{{ source_url }}"
     mode: "744"
+- name: "Check if oh-my-zsh is already installed"
+  stat:
+    path: "{{ user_home }}/.oh-my-zsh"
+  register: ohmyzsh_dir
 - name: "Install ohmyzsh"
   script:
     cmd: "{{ tmp_dir }}/ohmyzsh/{{ source_name }}"
+  when: not ohmyzsh_dir.stat.exists
+- name: "Install PowerLevel10K"
+  git:
+    repo: "https://github.com/romkatv/powerlevel10k.git"
+    dest: "{{user_home}}/.oh-my-zsh/custom/themes/powerlevel10k"
+    depth: 1
+- name: "copy config file"
+  copy:
+    src: "zsh/{{ item }}"
+    dest: "{{ user_home }}/{{ item }}"
+  with_items:
+    - .zshrc
