@@ -1,6 +1,15 @@
+[test]
+test-host ansible_host=localhost
 
-[server]
-localhost ansible_user=root ansible_ssh_pass=root ansible_port=2222
+[test:vars]
+ansible_user=root
+ansible_ssh_pass=root
+ansible_become_pass=root
+ansible_port=2222
 
 [local]
-localhost ansible_connection=local ansible_user=shoma
+local-host ansible_host=localhost
+
+[local:vars]
+ansible_connection=local
+ansible_user=hoge

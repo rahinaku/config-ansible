@@ -1,6 +1,6 @@
 ---
 - name: Gather_facts
-  hosts: local
+  hosts: test 
   become: yes
   gather_facts: true
   pre_tasks:
