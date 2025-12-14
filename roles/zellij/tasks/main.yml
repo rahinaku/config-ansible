@@ -17,6 +17,7 @@
     remote_src: true
     dest: "{{ xdg_data_home }}/zellij"
     mode: "0755"
+    creates: "{{ xdg_data_home }}/zellij/zellij"
 - name: "Create link to binay file"
   file:
     src: "{{ xdg_data_home }}/zellij/zellij"
