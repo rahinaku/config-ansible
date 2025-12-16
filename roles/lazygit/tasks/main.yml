@@ -1,0 +1,26 @@
+---
+- name: "Create lazygit dir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ xdg_data_home }}/lazygit"
+    - "{{ tmp_dir }}/lazygit"
+    - "{{ xdg_config_home }}/lazygit"
+- name: "Fetch lazygit"
+  get_url:
+    dest: "{{ tmp_dir }}/lazygit/{{ source_name }}"
+    url: "{{ source_url }}"
+    mode: "644"
+- name: "Extract the binary"
+  unarchive:
+    src: "{{ tmp_dir }}/lazygit/{{ source_name }}"
+    remote_src: true
+    dest: "{{ xdg_data_home }}/lazygit"
+    mode: "0755"
+    creates: "{{ xdg_data_home }}/lazygit/lazygit"
+- name: "Create link to binary file"
+  file:
+    src: "{{ xdg_data_home }}/lazygit/lazygit"
+    dest: "{{ xdg_bin_home }}/lazygit"
+    state: "link"
