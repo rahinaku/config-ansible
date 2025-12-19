@@ -11,4 +11,5 @@
     tmp_dir: "{{ user_home }}/ansible-tmp"
   roles:
     - common
+    - zsh
     - lazygit

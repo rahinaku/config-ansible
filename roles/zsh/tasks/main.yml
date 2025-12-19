@@ -1,4 +1,4 @@
-- name: "Create zellij dir"
+- name: "Create zsh dir"
   file:
     path: "{{ item }}"
     state: "directory"
