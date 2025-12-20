@@ -4,7 +4,7 @@ return {
     lazy         = false,
     keys         = {
         { "<leader>ft", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
-        { "<C-h>",      "<cmd>NvimTreeFocus<cr>",  desc = "Close NvimTree" },
+        { "<C-n>",      "<cmd>NvimTreeFocus<cr>",  desc = "Toggle NvimTree" },
     },
     dependencies = {
         "nvim-tree/nvim-web-devicons",
