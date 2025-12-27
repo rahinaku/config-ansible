@@ -8,6 +8,7 @@ Ansible playbook for development tools installation.
 - Lazygit
 - Zellij
 - Zsh (with oh-my-zsh)
+- Mise
 
 ## Requirements
 
@@ -29,6 +30,7 @@ ansible-playbook -i hosts site.yml --tags lazygit
 ansible-playbook -i hosts site.yml --tags neovim
 ansible-playbook -i hosts site.yml --tags zellij
 ansible-playbook -i hosts site.yml --tags zsh
+ansible-playbook -i hosts site.yml --tags mise
 ```
 
 ## Installation Paths
