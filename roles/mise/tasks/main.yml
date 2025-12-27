@@ -1,0 +1,33 @@
+---
+- name: "Create mise dir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ xdg_data_home }}/mise"
+    - "{{ tmp_dir }}/mise"
+    - "{{ xdg_config_home }}/mise"
+- name: "Fetch mise"
+  get_url:
+    dest: "{{ tmp_dir }}/mise/{{ source_name }}"
+    url: "{{ source_url }}"
+    mode: "644"
+- name: "Extract the binary"
+  unarchive:
+    src: "{{ tmp_dir }}/mise/{{ source_name }}"
+    remote_src: true
+    dest: "{{ xdg_data_home }}/mise"
+    mode: "0755"
+    creates: "{{ xdg_data_home }}/mise/bin/mise"
+- name: "Create link to binary file"
+  file:
+    src: "{{ xdg_data_home }}/mise/bin/mise"
+    dest: "{{ xdg_bin_home }}/mise"
+    state: "link"
+- name: "Add mise activation to .bashrc"
+  lineinfile:
+    path: "{{ user_home }}/.bashrc"
+    line: 'eval "$({{ xdg_bin_home }}/mise activate bash)"'
+    regexp: "^eval.*mise activate bash.*"
+    state: present
+    create: yes
