@@ -13,3 +13,13 @@ local-host ansible_host=localhost
 [local:vars]
 ansible_connection=local
 ansible_user=hoge
+
+[local]
+windows-host=hoge
+
+[local:windows]
+ansible_connection=winrm
+ansible_user=your_username
+ansible_password=your_password
+ansible_winrm_transport=basic
+ansible_port=5985
