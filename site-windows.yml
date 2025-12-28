@@ -2,4 +2,4 @@
 - name: Windows基本設定
   hosts: windows
   roles: 
-    - obsidian
+    - git
