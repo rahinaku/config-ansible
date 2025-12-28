@@ -129,3 +129,9 @@ New-NetFirewallRule -DisplayName "WinRM HTTP for WSL" `
     -Action Allow `
     -RemoteAddress 172.16.0.0/12
 ```
+
+### ホストのIPアドレスを取得
+
+```shell
+ip route | grep 'default via' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+```
