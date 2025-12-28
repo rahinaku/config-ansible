@@ -1,0 +1,18 @@
+- name: Install Alacritty
+  win_chocolatey:
+    name: alacritty 
+    state: present
+
+- name: Install Font
+  win_chocolatey:
+    name: nerd-fonts-jetbrainsmono 
+
+- name: Ensure Alacritty config directory exists
+  win_file:
+    path: "{{ ansible_env.APPDATA }}\\alacritty"
+    state: directory
+
+- name: Deploy alacritty.toml
+  win_copy:
+    src: alacritty.toml
+    dest: "{{ ansible_env.APPDATA }}\\alacritty\\alacritty.toml"

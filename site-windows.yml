@@ -1,0 +1,5 @@
+---
+- name: Windows基本設定
+  hosts: windows
+  roles: 
+    - alacritty

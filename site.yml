@@ -1,5 +1,5 @@
 ---
-- name: Install neovim
+- name: Setup Linux
   hosts: local
   vars:
     user_home: "{{ ansible_user_dir }}"

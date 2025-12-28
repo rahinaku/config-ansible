@@ -1,0 +1,6 @@
+- name: "install choco"
+  win_chocolatey:
+    name: chocolatey
+- name: "install choco gui"
+  win_chocolatey:
+    name: chocolateygui
