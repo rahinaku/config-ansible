@@ -1,0 +1,11 @@
+[font.normal]
+family = "JetBrainsMono NF"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono NF"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono NF"
+style = "Italic"

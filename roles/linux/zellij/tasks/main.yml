@@ -11,6 +11,7 @@
     dest: "{{ tmp_dir }}/zellij/{{ source_name }}"
     url: "{{ source_url }}"
     mode: "744"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Extract the binary"
   unarchive:
     src: "{{ tmp_dir }}/zellij/{{ source_name }}"
@@ -18,11 +19,17 @@
     dest: "{{ xdg_data_home }}/zellij"
     mode: "0755"
     creates: "{{ xdg_data_home }}/zellij/zellij"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Create link to binay file"
   file:
     src: "{{ xdg_data_home }}/zellij/zellij"
     dest: "{{ xdg_bin_home }}/zellij"
     state: "link"
+  when: ansible_facts['os_family'] == "Debian"
+- name: "Install nvim(brew)"
+  homebrew:
+    name: "zellij"
+  when: ansible_facts['os_family'] == "Darwin"
 - name: "Copy setting direcotry"
   copy:
     src: "zellij/"

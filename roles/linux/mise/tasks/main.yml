@@ -12,6 +12,7 @@
     dest: "{{ tmp_dir }}/mise/{{ source_name }}"
     url: "{{ source_url }}"
     mode: "644"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Extract the binary"
   unarchive:
     src: "{{ tmp_dir }}/mise/{{ source_name }}"
@@ -20,15 +21,28 @@
     extra_opts: ['--strip-components=1']
     mode: "0755"
     creates: "{{ xdg_data_home }}/mise/bin/mise"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Create link to binary file"
   file:
     src: "{{ xdg_data_home }}/mise/bin/mise"
     dest: "{{ xdg_bin_home }}/mise"
     state: "link"
+  when: ansible_facts['os_family'] == "Debian"
+- name: "Install mise(brew)"
+  homebrew:
+    name: "mise"
+  when: ansible_facts['os_family'] == "Darwin"
 - name: "Add mise activation to .bashrc"
   lineinfile:
     path: "{{ user_home }}/.bashrc"
-    line: 'eval "$({{ xdg_bin_home }}/mise activate bash)"'
+    line: 'eval "$(mise activate bash)"'
     regexp: "^eval.*mise activate bash.*"
     state: present
-    create: yes
+    create: no
+- name: "Add mise activation to .zshrc"
+  lineinfile:
+    path: "{{ user_home }}/.zshrc"
+    line: 'eval "$(mise activate zsh)"'
+    regexp: "^eval.*mise activate zsh.*"
+    state: present
+    create: no

@@ -12,6 +12,7 @@
     dest: "{{ tmp_dir }}/lazygit/{{ source_name }}"
     url: "{{ source_url }}"
     mode: "644"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Extract the binary"
   unarchive:
     src: "{{ tmp_dir }}/lazygit/{{ source_name }}"
@@ -19,8 +20,14 @@
     dest: "{{ xdg_data_home }}/lazygit"
     mode: "0755"
     creates: "{{ xdg_data_home }}/lazygit/lazygit"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Create link to binary file"
   file:
     src: "{{ xdg_data_home }}/lazygit/lazygit"
     dest: "{{ xdg_bin_home }}/lazygit"
     state: "link"
+  when: ansible_facts['os_family'] == "Debian"
+- name: "Install lazygit(brew)"
+  homebrew:
+    name: "lazygit"
+  when: ansible_facts['os_family'] == "Darwin"

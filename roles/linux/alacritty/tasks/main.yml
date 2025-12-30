@@ -1,0 +1,24 @@
+- name: "Create alacritty dir"
+  file:
+    path: "{{ item }}"
+    state: "directory"
+  with_items:
+    - "{{ xdg_config_home }}/alacritty"
+  when: ansible_facts['os_family'] == "Darwin"
+- name: Install Alacritty
+  homebrew:
+    name: "alacritty"
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name: Install Font
+  homebrew_cask:
+    name: "font-jetbrains-mono-nerd-font" 
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name: "Copy setting direcotry"
+  copy:
+    src: "alacritty/"
+    dest: "{{ xdg_config_home }}/alacritty"
+    mode: "0755"
+  when: ansible_facts['os_family'] == "Darwin"
+

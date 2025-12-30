@@ -8,11 +8,13 @@
   become: yes
   apt:
     name: "zsh"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Change default shell"
   become: yes
   user:
     name: "{{ ansible_env.USER }}"
     shell: "/usr/bin/zsh"
+  when: ansible_facts['os_family'] == "Debian"
 - name: "Featch oh my zsh"
   get_url:
     dest: "{{ tmp_dir }}/ohmyzsh/{{ source_name }}"
