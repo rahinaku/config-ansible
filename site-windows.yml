@@ -1,5 +1,12 @@
 ---
 - name: Windows基本設定
   hosts: windows
-  roles: 
-    - git
+  roles:
+    - role: git
+      tags: git
+    - role: alacritty
+      tags: alacritty
+    - role: chocolateygui
+      tags: chocolateygui
+    - role: obsidian
+      tags: obsidian

@@ -33,6 +33,19 @@ ansible-playbook -i hosts site.yml --tags zsh
 ansible-playbook -i hosts site.yml --tags mise
 ```
 
+### Install multiple tools
+
+```bash
+ansible-playbook -i hosts site.yml --tags "neovim,zsh,lazygit"
+```
+
+### Skip specific tool
+
+```bash
+ansible-playbook -i hosts site.yml --skip-tags cloudflare-tunnel
+ansible-playbook -i hosts site.yml --skip-tags "cloudflare-tunnel,alacritty"
+```
+
 ## Installation Paths
 
 - Binaries: `~/.local/bin/`

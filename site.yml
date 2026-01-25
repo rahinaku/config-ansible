@@ -1,6 +1,6 @@
 ---
 - name: Setup Linux
-  hosts: local
+  hosts: home 
   vars:
     user_home: "{{ ansible_facts['user_dir'] }}"
     xdg_cache_home: "{{ lookup('env', 'XDG_CACHE_HOME') | default(user_home + '/.cache', true) }}"
@@ -10,11 +10,21 @@
     xdg_bin_home: "{{ lookup('env', 'XDG_BIN_HOME') | default(user_home + '/.local/bin', true) }}"
     tmp_dir: "{{ user_home }}/ansible-tmp"
   roles:
-    - common
-    - lazygit
-    - neovim
-    - zellij
-    - zsh
-    - mise
-    - alacritty
-    - cloudflare-tunnel
+    - role: common
+      tags: common
+    - role: neovim
+      tags: neovim
+    - role: zsh
+      tags: zsh
+    - role: zellij
+      tags: zellij
+    - role: lazygit
+      tags: lazygit
+    - role: mise
+      tags: mise
+    - role: alacritty
+      tags: alacritty
+    - role: k9s
+      tags: k9s
+    - role: cloudflare-tunnel
+      tags: cloudflare-tunnel
