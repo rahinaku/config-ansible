@@ -1,0 +1,15 @@
+- name: "Create container dir"
+  file:
+    path: "/home/{{ ansible_user_id }}/container/cloudflare-tunnel"
+    state: "directory"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: "0755"
+
+- name: "Copy docker-compose directory"
+  copy:
+    src: "cloudflare-tunnel/"
+    dest: "/home/{{ ansible_user_id }}/container/cloudflare-tunnel"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: "0755"
