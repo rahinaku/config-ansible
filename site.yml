@@ -1,6 +1,6 @@
 ---
 - name: Setup Linux
-  hosts: home 
+  hosts: home
   vars:
     user_home: "{{ ansible_facts['user_dir'] }}"
     xdg_cache_home: "{{ lookup('env', 'XDG_CACHE_HOME') | default(user_home + '/.cache', true) }}"

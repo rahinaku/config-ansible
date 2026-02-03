@@ -31,6 +31,24 @@ return
                 ["<C-Space>"] = cmp.mapping.complete(),            -- 手動で補完候補を表示
                 ["<C-e>"] = cmp.mapping.abort(),                   -- 補完を中断して閉じる
                 ["<CR>"] = cmp.mapping.confirm({ select = true }), -- 補完確定 (現在選択中の候補を使用)
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()   -- 補完メニューが表示中なら次の候補を選択
+                    elseif luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump() -- スニペットの次のプレースホルダーへ移動
+                    else
+                        fallback()               -- 通常の Tab 動作
+                    end
+                end, { "i", "s" }),
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item() -- 補完メニューが表示中なら前の候補を選択
+                    elseif luasnip.jumpable(-1) then
+                        luasnip.jump(-1)       -- スニペットの前のプレースホルダーへ移動
+                    else
+                        fallback()             -- 通常の S-Tab 動作
+                    end
+                end, { "i", "s" }),
             }),
             sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
